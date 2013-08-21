@@ -25,21 +25,29 @@
     (when room
       (campfire/message campfire-creds room message))))
 
+(defn all-invalidations
+  [distribution-id]
+  (-> (list-invalidations aws-creds :distribution-id distribution-id)
+      :invalidation-list
+      :items))
+
 (defn in-flight-invalidations
   [distribution-id]
-  (not-empty (filter #(= (:status %) "InProgress") (list-invalidations aws-creds :distribution-id distribution-id))))
+  (not-empty (filter #(= (:status %) "InProgress")
+                     (all-invalidations distribution-id))))
 
 (defn check-forever
   [distribution-id]
-  (loop [in-flight (in-flight-invalidations distribution-id)]
+  (let [in-flight (in-flight-invalidations distribution-id)]
     ;; When starting up and there are invalidations in flight, ensure to report that
     (when in-flight
       (report in-flight))
-    (let [in-flight' (in-flight-invalidations distribution-id)]
-      (if (not (= in-flight in-flight'))
-        (report in-flight'))
-      (Thread/sleep (* sleep-time 1000))
-      (recur in-flight'))))
+    (loop [in-flight in-flight]
+      (let [in-flight' (in-flight-invalidations distribution-id)]
+        (if (not (= in-flight in-flight'))
+          (report in-flight'))
+        (Thread/sleep (* sleep-time 1000))
+        (recur in-flight')))))
 
 (defn -main
   []
