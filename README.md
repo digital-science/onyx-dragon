@@ -1,7 +1,7 @@
 # Onyx Dragon
 
 OnyxDragon monitors your CloudFront distribution and lets you know when
-invalidations are in progress (and when they've finshed).
+invalidations are in progress (and when they've finshed). It is excellent.
 
 ## What problem does this solve?
 
