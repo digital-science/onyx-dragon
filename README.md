@@ -1,7 +1,7 @@
 # Onyx Dragon
 
 OnyxDragon monitors your CloudFront distribution and lets you know when
-invalidations are in progress (and when they've finshed). It is excellent.
+invalidations are in progress (and when they've finshed).
 
 ## What problem does this solve?
 
@@ -14,7 +14,7 @@ back to none) reduces the busy time to nothing!
 
 ## Usage
 
-You need a bunch of environment variables defined in order for the OnyxDragon to 
+You need a bunch of environment variables defined in order for the OnyxDragon to
 work, something like the following:
 
     export AWS_KEY="your_aws_access_key"
