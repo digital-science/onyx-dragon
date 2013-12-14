@@ -28,7 +28,7 @@
   (hipchat/set-auth-token! (env :hipchat-token)))
 
 (def hipchat-room
-  (env :hipchat-room))
+  (env :hipchat-room-id))
 
 (defn report
   [in-flight]
