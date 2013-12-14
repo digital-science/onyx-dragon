@@ -1,9 +1,9 @@
 (ns onyx-dragon.core
   (:use
-    [amazonica.core]
-    [amazonica.aws.cloudfront]
     [environ.core])
   (:require
+    [amazonica.core :as aws]
+    [amazonica.aws.cloudfront :as cloudfront]
     [clj-campfire.core :as campfire]
     [hipchat.core :as hipchat]))
 
@@ -45,7 +45,7 @@
 
 (defn all-invalidations
   [distribution-id]
-  (-> (list-invalidations aws-creds :distribution-id distribution-id)
+  (-> (cloudfront/list-invalidations aws-creds :distribution-id distribution-id)
       :invalidation-list
       :items))
 
