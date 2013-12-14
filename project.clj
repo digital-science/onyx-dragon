@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [amazonica "0.1.13"]
                  [clj-campfire "2.2.0"]
-                 [hipchat-clj "0.1.1"]
+                 [org.clojars.wjlroe/hipchat-clj "0.1.1-SNAPSHOT"]
                  [environ "0.4.0"]]
   :main onyx-dragon.core
   :jvm-opts ["-server" "-XX:+UseConcMarkSweepGC" "-XX:+UseCompressedOops"])
