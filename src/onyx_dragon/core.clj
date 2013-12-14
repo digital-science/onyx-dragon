@@ -7,15 +7,20 @@
     [clj-campfire.core :as campfire]
     [hipchat.core :as hipchat]))
 
-(def sleep-time (or (env :sleep-time) 30))
+(def sleep-time
+  (or (env :sleep-time)
+      30))
 
-(def aws-creds {:access-key (env :aws-key)
-                :secret-key (env :aws-sec)
-                :endpoint "eu-west-1"})
+(def aws-creds
+  {:access-key (env :aws-key)
+   :secret-key (env :aws-sec)
+   :endpoint "eu-west-1"})
 
-(def campfire-creds {:api-token (env :campfire-token)
-                     :ssl true
-                     :sub-domain (env :campfire-subdomain)})
+(def campfire-creds
+  {:api-token (env :campfire-token)
+   :ssl true
+   :sub-domain (env :campfire-subdomain)})
+
 (def room
   (env :campfire-room))
 
@@ -52,7 +57,8 @@
 (defn check-forever
   [distribution-id]
   (let [in-flight (in-flight-invalidations distribution-id)]
-    ;; When starting up and there are invalidations in flight, ensure to report that
+    ;; When starting up and there are invalidations in flight,
+    ;; ensure to report that
     (when in-flight
       (report in-flight))
     (loop [in-flight in-flight]
