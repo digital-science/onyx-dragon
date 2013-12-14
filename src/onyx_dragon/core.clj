@@ -2,7 +2,9 @@
   (:use [amazonica.core]
         [amazonica.aws.cloudfront]
         [environ.core])
-  (:require [clj-campfire.core :as campfire]))
+  (:require
+    [clj-campfire.core :as campfire]
+    [hipchat.core :as hipchat]))
 
 (def sleep-time (or (env :sleep-time) 30))
 
@@ -16,6 +18,12 @@
 (def room
   (env :campfire-room))
 
+(when (env :hipchat-token)
+  (hipchat/set-auth-token! (env :hipchat-token)))
+
+(def hipchat-room
+  (env :hipchat-room))
+
 (defn report
   [in-flight]
   (let [message (if in-flight
@@ -23,7 +31,11 @@
                   "All cache invalidations have completed!")]
     (println message)
     (when room
-      (campfire/message campfire-creds room message))))
+      (campfire/message campfire-creds room message))
+    (when hipchat-room
+      (hipchat/send-message-to-room hipchat-room message :color (if in-flight
+                                                                  "red"
+                                                                  "green")))))
 
 (defn all-invalidations
   [distribution-id]
