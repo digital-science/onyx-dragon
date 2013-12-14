@@ -1,6 +1,6 @@
 (ns onyx-dragon.core
   (:use
-    [environ.core])
+    [environ.core :only [env]])
   (:require
     [amazonica.core :as aws]
     [amazonica.aws.cloudfront :as cloudfront]
