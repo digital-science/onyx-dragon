@@ -1,7 +1,8 @@
 (ns onyx-dragon.core
-  (:use [amazonica.core]
-        [amazonica.aws.cloudfront]
-        [environ.core])
+  (:use
+    [amazonica.core]
+    [amazonica.aws.cloudfront]
+    [environ.core])
   (:require
     [clj-campfire.core :as campfire]
     [hipchat.core :as hipchat]))
